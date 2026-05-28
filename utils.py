@@ -11,6 +11,8 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.metrics import silhouette_score
 from sklearn.cluster import KMeans
+from sklearn.neighbors import NearestNeighbors
+
 
 def silhouette_analysis(
         X: np.ndarray, k_range: range, print_scores: bool = False,
@@ -79,3 +81,26 @@ def elbow_method(X: np.ndarray, k_range: range, kmeans_params: dict = {}) -> Non
 
 def gap_statistics():
     pass
+
+
+def plot_k_distance_graph(X: np.ndarray, n_neighbors: int) -> None:
+    """Plot the K-Distance Graph
+
+    Plot the K-Distance Graph used for tuning the epsilon parameter in DBSCAN algorithm.
+
+    :param X: The input array
+    :param n_neighbors: Number of neighbors to calculate the distance from
+    """
+    neigh = NearestNeighbors(n_neighbors=n_neighbors)
+    neigh.fit(X)
+    distances, _ = neigh.kneighbors(X)
+    distances = np.sort(distances[:, n_neighbors - 1])
+    
+    _, ax = plt.subplots(figsize=(8, 6))
+    
+    ax.plot(range(len(distances)), distances)
+    ax.set_title(f"{n_neighbors}-Distance Graph", fontsize=14, fontweight="bold")
+    ax.set_xlabel("Points")
+    ax.set_ylabel(f"{n_neighbors}-th Nearest Neighbor Distance")
+    ax.grid(True, linestyle="--", alpha=0.7)
+    plt.show()
