@@ -53,9 +53,11 @@ def silhouette_analysis(
         ax.set_title("Silhouette Score Trend")
         ax.set_ylabel("Silhouette Score")
         ax.set_xlabel("K")
+        ax.grid(True, linestyle="--", alpha=0.7)
 
     print("\nBest Score: (K, Silhouette Score)")
-    return best_score
+    print(best_score[0])
+    return best_score[0]
 
 
 def elbow_method(X: np.ndarray, k_range: range, kmeans_params: dict = {}) -> None:
@@ -77,6 +79,7 @@ def elbow_method(X: np.ndarray, k_range: range, kmeans_params: dict = {}) -> Non
     ax.set_title("Elbow Method Visualization")
     ax.set_xlabel("K")
     ax.set_ylabel("Inertia")
+    ax.grid(True, linestyle="--", alpha=0.7)
 
 
 def gap_statistics():
