@@ -1,0 +1,42 @@
+customer_id,full_name,first_name,last_name,age,city,email,phone
+1001,James Carter,James,Carter,34,London,james.carter@email.com,7700900001
+1001,James Carter,James,Carter,34,London,james.carter@email.com,7700900001
+1002,Emily Watson,Emily,Watson,28,Manchester,emily.watson@email.com,7700900002
+1002,Emilly Watson,Emilly,Watson,28,Manchester,emily.watson@email.com,7700900002
+1003,Mohammed Al-Rashid,Mohammed,Al-Rashid,45,Birmingham,m.alrashid@email.com,7700900003
+1003,Mohammad Al Rashid,Mohammad,Al Rashid,45,Birmingham,m.alrashid@email.com,7700900003
+1004,Sarah O'Brien,Sarah,O'Brien,31,Leeds,sarah.obrien@email.com,7700900004
+1004,Sarah OBrien,Sarah,OBrien,31,Leeds,sarah.obrien@email.com,7700900004
+1005,Thomas Nguyen,Thomas,Nguyen,52,Liverpool,t.nguyen@email.com,7700900005
+1005,Tom Nguyen,Tom,Nguyen,52,Liverpool,t.nguyen@email.com,7700900005
+1006,Charlotte Evans,Charlotte,Evans,23,Bristol,c.evans@email.com,7700900006
+1006,Charlote Evans,Charlote,Evans,23,Bristol,c.evans@email.com,7700900006
+1007,David Singh,David,Singh,38,Nottingham,david.singh@email.com,7700900007
+1007,Dave Singh,Dave,Singh,38,Nottingham,david.singh@email.com,7700900007
+1008,Priya Patel,Priya,Patel,29,Leicester,priya.patel@email.com,7700900008
+1008,Priya  Patel,Priya,Patel,29,Leicester,priya.patel@email.com,7700900008
+1009,Robert Hughes,Robert,Hughes,41,Sheffield,r.hughes@email.com,7700900009
+1009,Robert Hughes,Robert,Hughes,42,Sheffield,r.hughes@email.com,7700900009
+1010,Aisha Bakr,Aisha,Bakr,36,Edinburgh,aisha.bakr@email.com,7700900010
+1010,Aisha Bakr,Aisha,Bakr,36,Glasgow,aisha.bakr@email.com,7700900010
+1011,George Williams,George,Williams,55,Cardiff,gwilliams@email.com,7700900011
+1011,George Williams,George,Williams,55,Cardiff,george.williams@email.com,7700900011
+1012,DR. Anna Klein,Anna,Klein,48,Oxford,anna.klein@email.com,7700900012
+1012,Anna Klein,Anna,Klein,48,Oxford,anna.klein@email.com,7700900012
+1013,John Smith Jr.,John,Smith,33,Cambridge,john.smith@email.com,7700900013
+1013,John Smith,John,Smith,33,Cambridge,john.smith@email.com,7700900013
+1014,Ms. Laura Brown,Laura,Brown,27,Brighton,laura.brown@email.com,7700900014
+1014,Laura Brown,Laura,Brown,27,Brighton,laura.brown@email.com,7700900014
+1015,Mark Taylor,Marcus,Taylor,44,Norwich,mark.taylor@email.com,7700900015
+1016,Susan Clarke,Susan,Clark,39,Bath,susan.clarke@email.com,7700900016
+1017,Christopher Lee,Chris,Lee,50,Coventry,chris.lee@email.com,7700900017
+1018,Rebecca Jones,Becky,Jones,26,Reading,rebecca.jones@email.com,7700900018
+1019,Nathan Brooks,Nathan,Brooks,31,Plymouth,n.brooks@email.com,7700900019
+1019,Nathan Brooks,Nathan,Brooks,31,Plymouth,n.brooks@email.com,7700900019
+1020,Fatima Hassan,Fatima,Hassan,37,Southampton,fatima.hassan@email.com,7700900020
+1020,Fatimah Hassan,Fatimah,Hassan,37,Southampton,fatima.hassan@email.com,7700900020
+1021,Oliver Thompson,Oliver,Thompson,22,York,o.thompson@email.com,7700900021
+1021,Olivar Thompson,Olivar,Thompson,22,York,o.thompson@email.com,7700900021
+1022,Hannah Scott,Hannah,Scott,30,Exeter,hannah.scott@email.com,7700900022
+1023,Ryan Mitchell,Ryan,Mitchell,43,Stoke,ryan.mitchell@email.com,7700900023
+1024,Zoe Robinson,Zoe,Robinson,25,Hull,zoe.robinson@email.com,7700900024
