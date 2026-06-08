@@ -6,12 +6,18 @@ Author: Erfan Taherirani
 Email: e.taherirani81@gmail.com
 Github: Erfan-Taherirani
 """
+import itertools
+
+
 import numpy as np
+import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.metrics import silhouette_score
 from sklearn.cluster import KMeans
 from sklearn.neighbors import NearestNeighbors
+from thefuzz import fuzz
+import jellyfish
 
 
 def silhouette_analysis(
@@ -107,3 +113,44 @@ def plot_k_distance_graph(X: np.ndarray, n_neighbors: int) -> None:
     ax.set_ylabel(f"{n_neighbors}-th Nearest Neighbor Distance")
     ax.grid(True, linestyle="--", alpha=0.7)
     plt.show()
+
+
+def fuzzy_dedup(
+        df: pd.DataFrame,
+        feature: str,
+        threshold: int = 80,
+        scorer = fuzz.ratio
+) -> list[tuple]:
+    """Calculate the potential duplicates using fuzzy matching techniques.
+
+    :param df: The dataframe
+    :param feature: Feature (column) we wanna use in fuzzy matching
+    :param threshold: Fuzzy matching score threshold, defaults to 80
+    :param scorer: the scorer function from thefuzz.fuzz module, defaults to fuzz.ratio
+    :return: A list of tuples with potential duplication possibility.
+    """
+    potential_duplicates = []
+    for (idx1, row1), (idx2, row2) in itertools.combinations(df.iterrows(), 2):
+        if scorer(row1[feature], row2[feature]) >= threshold:
+            potential_duplicates.append((idx1, idx2))
+
+    print(f"Number of potential duplicates: {len(potential_duplicates)}")
+    return potential_duplicates
+
+
+def phonetic_match(df: pd.DataFrame, feature: str) -> pd.DataFrame:
+    """Find phonetic duplicates
+
+    This function creates a new dataframe from the original dataframe with
+    another column named 'phonetic' that is sorted based on this new column
+    added and helps in identifying phonetic duplicates.
+
+    :param df: The input dataframe.
+    :param feature: The column used for phonetic matching.
+    :return: New sorted dataframe.
+    """
+    df['phonetic'] = df[feature].apply(jellyfish.soundex)
+    new_df = df[df.duplicated(subset="phonetic", keep=False)].sort_values(by="phonetic")
+
+    print(f"Number of potential duplicates: {df.duplicated(subset="phonetic").sum()}")
+    return new_df
