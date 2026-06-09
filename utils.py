@@ -20,6 +20,11 @@ from thefuzz import fuzz
 import jellyfish
 
 
+# __all__=[
+
+# ]
+
+
 def silhouette_analysis(
         X: np.ndarray, k_range: range, print_scores: bool = False,
         visualization: bool = False, kmeans_params: dict = {}
@@ -154,3 +159,37 @@ def phonetic_match(df: pd.DataFrame, feature: str) -> pd.DataFrame:
 
     print(f"Number of potential duplicates: {df.duplicated(subset="phonetic").sum()}")
     return new_df
+
+
+# This part is related to the functions that mostly used for feature_selection
+
+# fiter-based methods
+def corr_analysis(
+        df: pd.DataFrame,
+        target_name: str,
+        method: str = "pearson",
+        threshold: float = 0
+) -> pd.DataFrame:
+    """Create a data frame of the Correlation analysis
+
+    This function creates a correlation analysis data frame based_on the
+    method you choose for the analysis and using threshold argument you can
+    filter the results based-on the correlation value. 
+
+    :param df: The input dataframe
+    :param target_name: The target variable name
+    :param method: The correlation analysis method name, defaults to "pearson"
+    :param threshold: Threshold to filter the results, defaults to 0
+    :return: The correlation analysis data frame
+    """
+    try:
+        corr = abs(df.drop(target_name, axis=1).corrwith(
+            df[target_name], method=method)).sort_values(ascending=False)
+        corr_df = pd.DataFrame(corr).rename({0: f"{method}_correlation"}, axis=1)
+        
+        return corr_df.loc[corr_df[f"{method}_correlation"] > threshold]
+
+    except ValueError:
+        print("ValueError: Method argument not exist.")
+        print("Methods to choose: ['pearson', 'kendall', 'spearman']")
+        return pd.DataFrame()
