@@ -9,57 +9,40 @@ from sklearn.datasets import make_classification
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
-from utils import calculate_disagreement, ensemble_diversity_matrix
+from utils import calculate_disagreement, calculate_diversity, calculate_prediction_correlations
+from utils import evaluate_model_contributions
 
-# Generate some data
-X, y = make_classification(
-    n_samples=1000, n_features=20, n_informative=10,
-    n_redundant=2, random_state=42
-)
+X, y = make_classification(n_samples=1000, n_features=20, n_informative=15, n_redundant=5, random_state=42)
 
-# Split the data into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
-)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Create a voting classifier
-voting_classifier = VotingClassifier(
-    estimators=[
-        ('knn', KNeighborsClassifier(n_neighbors=5)),
-        ('dt', DecisionTreeClassifier(max_depth=5)),
-        # ('svc', SVC(kernel='linear', probability=True))
-        ('lr', LogisticRegression(max_iter=1000)),
-        ('rf', RandomForestClassifier(n_estimators=100))
-    ],
-    voting='soft'
-)
+models = [
+    KNeighborsClassifier(n_neighbors=5),
+    DecisionTreeClassifier(max_depth=5, random_state=42),
+    LogisticRegression(max_iter=1000, random_state=42),
+    RandomForestClassifier(n_estimators=100, random_state=42),
+    # SVC(kernel='linear', random_state=42)
+]
 
-# Train the voting classifier
-voting_classifier.fit(X_train, y_train)
+estimators = [
+    ("knn", KNeighborsClassifier(n_neighbors=5)),
+    ("dt", DecisionTreeClassifier(max_depth=5, random_state=42)),
+    ("lr", LogisticRegression(max_iter=1000, random_state=42)),
+    ("rf", RandomForestClassifier(n_estimators=100, random_state=42)),
+    # ("svm", SVC(kernel='linear', random_state=42))
+]
 
-# Make predictions on the testing set
-y_pred = voting_classifier.predict(X_test)
+voting = VotingClassifier(estimators=estimators, voting='hard')
+voting.fit(X_train, y_train)
 
-# Calculate the accuracy of the voting classifier
-accuracy = accuracy_score(y_test, y_pred)
-print(f'Accuracy: {accuracy:.2f}')
+# estimators = []
+# for model in models:
+#     estimators.append(model.fit(X_train, y_train))
 
-# Calculate the disagreement between the voting classifier and the majority class
-disagreement = calculate_disagreement(
-    voting_classifier, 
-    LogisticRegression(max_iter=1000).fit(X_train, y_train),
-    X_test
-)
-print(f'Disagreement: {disagreement:.2f}')
+# print(calculate_prediction_correlations(estimators, X_test))
 
-diversity_matrix = ensemble_diversity_matrix(
-    [
-        KNeighborsClassifier(n_neighbors=5).fit(X_train, y_train),
-        DecisionTreeClassifier(max_depth=5).fit(X_train, y_train),
-        # SVC(kernel='linear', probability=True).fit(X_train, y_train),
-        LogisticRegression(max_iter=1000).fit(X_train, y_train),
-        RandomForestClassifier(n_estimators=100).fit(X_train, y_train)
-    ],
-    X_test
-)
-print(diversity_matrix)
+# print(calculate_diversity(estimators, X_test))
+
+print(f"Ensemble accuracy: {voting.score(X_test, y_test):.2f}")
+print(f"Ensemble Model Contributions: {evaluate_model_contributions(voting, X_test, y_test)}")
+
