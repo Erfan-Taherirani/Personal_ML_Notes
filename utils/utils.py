@@ -1,14 +1,11 @@
 """
-This modules contains the most useful functions and classes needed for the 
-ML projects
+This modules contains the most useful functions and classes needed for the
+Machine Learning projects.
 
 Author: Erfan Taherirani
 Email: e.taherirani81@gmail.com
-Github: Erfan-Taherirani
+Github: https://github.com/Erfan-Taherirani
 """
-import itertools
-
-
 import numpy as np
 import pandas as pd
 import seaborn as sns
@@ -19,10 +16,7 @@ from sklearn.neighbors import NearestNeighbors
 from thefuzz import fuzz
 import jellyfish
 
-
-# __all__=[
-
-# ]
+import itertools
 
 
 def silhouette_analysis(
